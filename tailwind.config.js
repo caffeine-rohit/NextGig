@@ -1,0 +1,75 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#0F766E',
+          50: '#E6F7F6',
+          100: '#CCEEEC',
+          200: '#99DDD9',
+          300: '#66CCC6',
+          400: '#33BBB3',
+          500: '#0F766E',
+          600: '#0C5F58',
+          700: '#094842',
+          800: '#06302C',
+          900: '#031816',
+        },
+        accent: {
+          DEFAULT: '#F59E0B',
+          50: '#FEF3E2',
+          100: '#FDE7C5',
+          200: '#FBCF8B',
+          300: '#F9B751',
+          400: '#F7A01F',
+          500: '#F59E0B',
+          600: '#C47E09',
+          700: '#935F07',
+          800: '#623F05',
+          900: '#311F02',
+        },
+        dark: '#111827',
+        gray: {
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
+        },
+      },
+      fontFamily: {
+        heading: ['Montserrat', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+      fontWeight: {
+        'medium': '500',
+        'semibold': '600',
+        'bold': '700',
+      },
+      borderRadius: {
+        'card': '12px',
+        'input': '8px',
+        'button': '8px',
+      },
+      spacing: {
+        '6': '6px',
+        '10': '10px',
+        '14': '14px',
+        '20': '20px',
+      },
+      boxShadow: {
+        'custom': '0 2px 12px rgba(0, 0, 0, 0.08)',
+        'custom-lg': '0 4px 20px rgba(0, 0, 0, 0.12)',
+        'custom-hover': '0 6px 24px rgba(0, 0, 0, 0.15)',
+      },
+    },
+  },
+  plugins: [],
+};
