@@ -88,72 +88,72 @@ export function EmployerDashboard({ profile }: EmployerDashboardProps) {
   const activeJobs = jobs.filter((job) => job.status === 'active').length;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
           <div>
-            <h1 className="text-3xl font-bold text-dark font-heading mb-2">
+            <h1 className="text-4xl font-bold text-dark font-heading mb-3">
               Employer Dashboard
             </h1>
-            <p className="text-gray-600 font-body">
+            <p className="text-lg text-gray-600 font-body">
               Manage your job postings and track applications
             </p>
           </div>
-          <PrimaryButton onClick={() => setShowCreateModal(true)}>
+          <PrimaryButton onClick={() => setShowCreateModal(true)} size="lg">
             <Plus className="w-5 h-5 mr-2" />
             Post a Job
           </PrimaryButton>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <Briefcase className="w-8 h-8 text-primary" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <Briefcase className="w-10 h-10 text-primary" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {activeJobs}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Active Jobs</p>
+              <p className="text-lg text-gray-600 font-body">Active Jobs</p>
             </div>
           </GlassCard>
 
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <Users className="w-8 h-8 text-accent" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <Users className="w-10 h-10 text-accent" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {totalApplications}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Total Applications</p>
+              <p className="text-lg text-gray-600 font-body">Total Applications</p>
             </div>
           </GlassCard>
 
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <BarChart className="w-8 h-8 text-primary" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <BarChart className="w-10 h-10 text-primary" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {jobs.length}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Total Jobs Posted</p>
+              <p className="text-lg text-gray-600 font-body">Total Jobs Posted</p>
             </div>
           </GlassCard>
         </div>
 
         <GlassCard>
-          <div className="p-8">
-            <h2 className="text-xl font-semibold text-dark font-heading mb-6">
+          <div className="p-10">
+            <h2 className="text-2xl font-semibold text-dark font-heading mb-8">
               Your Job Postings
             </h2>
 
             {loading ? (
               <LoadingSkeleton type="list" />
             ) : jobs.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-600 font-body mb-4">
+              <div className="text-center py-16">
+                <p className="text-lg text-gray-600 font-body mb-6">
                   You haven't posted any jobs yet
                 </p>
                 <PrimaryButton onClick={() => setShowCreateModal(true)}>
@@ -161,7 +161,7 @@ export function EmployerDashboard({ profile }: EmployerDashboardProps) {
                 </PrimaryButton>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {jobs.map((job) => (
                   <div
                     key={job.id}

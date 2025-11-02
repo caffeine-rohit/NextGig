@@ -72,66 +72,66 @@ export function CandidateDashboard({ profile }: CandidateDashboardProps) {
   const shortlistedCount = applications.filter((app) => app.status === 'shortlisted').length;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-dark font-heading mb-2">
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-dark font-heading mb-3">
             My Applications
           </h1>
-          <p className="text-gray-600 font-body">
+          <p className="text-lg text-gray-600 font-body">
             Track the status of your job applications
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <Clock className="w-8 h-8 text-yellow-500" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <Clock className="w-10 h-10 text-yellow-500" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {pendingCount}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Pending Review</p>
+              <p className="text-lg text-gray-600 font-body">Pending Review</p>
             </div>
           </GlassCard>
 
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <Briefcase className="w-8 h-8 text-blue-500" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <Briefcase className="w-10 h-10 text-blue-500" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {reviewingCount}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Under Review</p>
+              <p className="text-lg text-gray-600 font-body">Under Review</p>
             </div>
           </GlassCard>
 
           <GlassCard>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <CheckCircle className="w-8 h-8 text-green-500" />
-                <span className="text-3xl font-bold text-dark font-heading">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-4">
+                <CheckCircle className="w-10 h-10 text-green-500" />
+                <span className="text-4xl font-bold text-dark font-heading">
                   {shortlistedCount}
                 </span>
               </div>
-              <p className="text-gray-600 font-body">Shortlisted</p>
+              <p className="text-lg text-gray-600 font-body">Shortlisted</p>
             </div>
           </GlassCard>
         </div>
 
         <GlassCard>
-          <div className="p-8">
-            <h2 className="text-xl font-semibold text-dark font-heading mb-6">
+          <div className="p-10">
+            <h2 className="text-2xl font-semibold text-dark font-heading mb-8">
               All Applications
             </h2>
 
             {loading ? (
               <LoadingSkeleton type="list" />
             ) : applications.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-600 font-body mb-4">
+              <div className="text-center py-16">
+                <p className="text-lg text-gray-600 font-body mb-6">
                   You haven't applied to any jobs yet
                 </p>
                 <PrimaryButton onClick={() => navigate('/jobs')}>
@@ -139,7 +139,7 @@ export function CandidateDashboard({ profile }: CandidateDashboardProps) {
                 </PrimaryButton>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {applications.map((application) => (
                   <div
                     key={application.id}

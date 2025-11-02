@@ -120,24 +120,24 @@ export function JobDetailPage({ user, profile }: JobDetailPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <button
           onClick={() => navigate('/jobs')}
-          className="flex items-center gap-2 text-primary hover:text-primary-600 mb-6 font-body font-medium"
+          className="flex items-center gap-2 text-primary hover:text-primary-600 mb-10 font-body font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Jobs
         </button>
 
         <GlassCard>
-          <div className="p-8">
-            <div className="flex items-start justify-between mb-6">
+          <div className="p-10">
+            <div className="flex items-start justify-between mb-10">
               <div className="flex-1">
-                <h1 className="text-3xl font-bold text-dark font-heading mb-3">
+                <h1 className="text-4xl font-bold text-dark font-heading mb-4">
                   {job.title}
                 </h1>
-                <div className="flex items-center gap-2 text-lg text-gray-700 font-body mb-4">
+                <div className="flex items-center gap-2 text-lg text-gray-700 font-body">
                   <Building2 className="w-5 h-5" />
                   <span>{job.company_name}</span>
                 </div>
@@ -149,43 +149,51 @@ export function JobDetailPage({ user, profile }: JobDetailPageProps) {
               )}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <div className="flex items-center gap-2 text-gray-600 font-body">
-                <MapPin className="w-5 h-5 text-primary" />
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10 pb-10 border-b border-gray-200">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                </div>
                 <div>
-                  <p className="text-xs text-gray-500">Location</p>
-                  <p className="font-medium text-gray-900">{job.location}</p>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Location</p>
+                  <p className="font-semibold text-gray-900 mt-1">{job.location}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-gray-600 font-body">
-                <Briefcase className="w-5 h-5 text-primary" />
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <Briefcase className="w-5 h-5 text-primary mt-0.5" />
+                </div>
                 <div>
-                  <p className="text-xs text-gray-500">Job Type</p>
-                  <p className="font-medium text-gray-900">{job.job_type}</p>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Job Type</p>
+                  <p className="font-semibold text-gray-900 mt-1">{job.job_type}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-gray-600 font-body">
-                <Clock className="w-5 h-5 text-primary" />
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <Clock className="w-5 h-5 text-primary mt-0.5" />
+                </div>
                 <div>
-                  <p className="text-xs text-gray-500">Experience</p>
-                  <p className="font-medium text-gray-900">{job.experience_level}</p>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Experience</p>
+                  <p className="font-semibold text-gray-900 mt-1">{job.experience_level}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-gray-600 font-body">
-                <DollarSign className="w-5 h-5 text-primary" />
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <DollarSign className="w-5 h-5 text-primary mt-0.5" />
+                </div>
                 <div>
-                  <p className="text-xs text-gray-500">Salary</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Salary</p>
+                  <p className="font-semibold text-gray-900 mt-1">
                     {formatSalary(job.salary_min, job.salary_max, job.salary_currency)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-3 mb-12">
               <span className="px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium">
                 {job.category}
               </span>
@@ -196,8 +204,8 @@ export function JobDetailPage({ user, profile }: JobDetailPageProps) {
               )}
             </div>
 
-            <div className="border-t border-gray-200 pt-8 mb-8">
-              <h2 className="text-xl font-semibold text-dark font-heading mb-4">
+            <div className="border-t border-gray-200 pt-12 mb-12">
+              <h2 className="text-2xl font-semibold text-dark font-heading mb-6">
                 Job Description
               </h2>
               <div className="prose prose-gray max-w-none font-body text-gray-700 leading-relaxed whitespace-pre-wrap">
@@ -205,8 +213,8 @@ export function JobDetailPage({ user, profile }: JobDetailPageProps) {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-              <div className="flex items-center gap-6 text-sm text-gray-500 font-body">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 pt-10 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-sm text-gray-500 font-body">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   <span>Posted {formatDate(job.created_at)}</span>
