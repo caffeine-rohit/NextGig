@@ -93,7 +93,7 @@ export function RegisterPage({ onRegister }: RegisterPageProps) {
               <Briefcase className="w-8 h-8 text-white" />
             </div>
             <span className="text-2xl font-bold text-dark font-heading">
-              OpportunityHub
+              NextGig
             </span>
           </Link>
           <h2 className="text-3xl font-bold text-dark font-heading mb-2">

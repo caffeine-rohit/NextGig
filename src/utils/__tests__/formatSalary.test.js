@@ -1,0 +1,1 @@
+// verify salary formatter output

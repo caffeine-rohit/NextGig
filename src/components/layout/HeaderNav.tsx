@@ -25,7 +25,7 @@ export function HeaderNav({ user, profile, onLogout }: HeaderNavProps) {
               <Briefcase className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold text-dark font-heading">
-              OpportunityHub
+              NextGig
             </span>
           </Link>
 

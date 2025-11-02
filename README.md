@@ -1,4 +1,4 @@
-# OpportunityHub - Job Board Platform
+# NextGig - Job Board Platform
 
 A modern, full-featured job board platform built with React, TypeScript, Tailwind CSS, and Supabase. Connect talented professionals with their dream opportunities.
 

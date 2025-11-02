@@ -12,7 +12,7 @@ export function PageFooter() {
                 <Briefcase className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold text-white font-heading">
-                OpportunityHub
+                NextGig
               </span>
             </div>
             <p className="text-gray-400 font-body mb-6 leading-relaxed">
@@ -115,7 +115,7 @@ export function PageFooter() {
 
         <div className="border-t border-gray-700 mt-10 pt-8 text-center">
           <p className="text-gray-400 font-body text-sm">
-            &copy; {new Date().getFullYear()} OpportunityHub. Built with care for
+            &copy; {new Date().getFullYear()} NextGig. Built with care for
             connecting talent with opportunity.
           </p>
         </div>

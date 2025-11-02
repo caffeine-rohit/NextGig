@@ -26,9 +26,9 @@ export function HomePage() {
       <section className="bg-gradient-to-br from-primary-50 via-white to-accent-50 py-28 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            <h1 className="text-5xl md:text-6xl font-bold text-dark font-heading leading-tight">
-              Discover Your Next
-              <span className="text-primary"> Career Move</span>
+            <h1 className="text-[2.6rem] md:text-[3.2rem] font-bold text-dark font-heading leading-tight">
+              Discover roles crafted for
+            <span className="text-primary"> builders, designers & dreamers </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 font-body leading-relaxed">
               Connect with top opportunities from leading companies across India.
@@ -150,7 +150,7 @@ export function HomePage() {
           </h2>
           <p className="text-lg md:text-xl text-primary-100 font-body leading-relaxed">
             Join thousands of professionals who have found their dream jobs
-            through OpportunityHub
+            through NextGig
           </p>
           <div className="flex flex-col sm:flex-row gap-5 justify-center pt-4">
             <PrimaryButton
