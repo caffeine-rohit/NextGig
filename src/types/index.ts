@@ -36,7 +36,7 @@ export interface Job {
   views_count: number;
   created_at: string;
   updated_at: string;
-  employer?: Profile;
+  employer?: Profile | null;
 }
 
 export interface Application {

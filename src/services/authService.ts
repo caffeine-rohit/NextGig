@@ -1,82 +1,97 @@
-import { supabase } from '../lib/supabase';
-import { Profile } from '../types';
+// src/services/authService.ts
+import { supabase } from "../lib/supabase";
+import type { Profile } from "../types";
 
 export const authService = {
-  async signUp(email: string, password: string, fullName: string, role: 'candidate' | 'employer') {
+  //  Sign up user and insert into profiles table
+  async signUp(email: string, password: string, fullName: string, role: "candidate" | "employer") {
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          full_name: fullName,
+          role,
+        },
+      },
     });
 
     if (authError) throw authError;
-    if (!authData.user) throw new Error('Failed to create user');
 
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .insert({
-        id: authData.user.id,
-        email,
-        full_name: fullName,
-        role,
-      });
+    // Insert into profiles table with matching id
+    const { data: profileData, error: profileError } = await supabase
+      .from("profiles")
+      .insert([
+        {
+          id: authData.user?.id,
+          email,
+          full_name: fullName,
+          role,
+        },
+      ]);
 
     if (profileError) throw profileError;
 
-    return authData;
+    return { user: authData.user };
   },
 
+  // Sign in existing user
   async signIn(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-
     if (error) throw error;
-    return data;
+    return { user: data.user };
   },
 
+  // Sign out
   async signOut() {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    await supabase.auth.signOut();
   },
 
+  // Get current logged-in user
   async getCurrentUser() {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user;
+    const { data } = await supabase.auth.getUser();
+    return data.user;
   },
 
+  // Get user profile from profiles table
   async getCurrentProfile(): Promise<Profile | null> {
-    const user = await this.getCurrentUser();
-    if (!user) return null;
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return null;
 
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .maybeSingle();
+    const { data: profile, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userData.user.id)
+      .single();
 
-    if (error) throw error;
-    return data;
+    if (error) return null;
+    return profile as Profile;
   },
 
+  // Update user profile
   async updateProfile(updates: Partial<Profile>) {
-    const user = await this.getCurrentUser();
-    if (!user) throw new Error('Not authenticated');
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) throw new Error("Not authenticated");
 
     const { data, error } = await supabase
-      .from('profiles')
+      .from("profiles")
       .update(updates)
-      .eq('id', user.id)
+      .eq("id", userData.user.id)
       .select()
       .single();
 
     if (error) throw error;
-    return data;
+    return data as Profile;
   },
 
+  // Listen to auth state changes
   onAuthStateChange(callback: (user: any) => void) {
-    return supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       callback(session?.user ?? null);
     });
+    return () => listener.subscription.unsubscribe();
   },
 };

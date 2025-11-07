@@ -48,7 +48,7 @@ export function OpportunityCard({ job }: OpportunityCardProps) {
 
         <div className="flex items-center justify-between pt-4 border-t border-gray-200">
           <div className="flex items-center gap-1.5 text-primary font-semibold font-body">
-            <DollarSign className="w-5 h-5" />
+            {/* <DollarSign className="w-5 h-5" /> */}
             <span>{formatSalary(job.salary_min, job.salary_max, job.salary_currency)}</span>
           </div>
           <span className="text-sm text-gray-500 font-body">

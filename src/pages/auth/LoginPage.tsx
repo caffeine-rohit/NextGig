@@ -6,7 +6,7 @@ import { PrimaryButton } from '../../components/common/PrimaryButton';
 import { validateEmail } from '../../utils/validators';
 
 interface LoginPageProps {
-  onLogin: (email: string, password: string) => Promise<void>;
+  onLogin: (email: string, password: string) => Promise<{ user: any | null }>;
 }
 
 export function LoginPage({ onLogin }: LoginPageProps) {

@@ -12,7 +12,7 @@ interface RegisterPageProps {
     password: string,
     fullName: string,
     role: 'candidate' | 'employer'
-  ) => Promise<void>;
+  ) => Promise<{ user: any | null }>;
 }
 
 export function RegisterPage({ onRegister }: RegisterPageProps) {

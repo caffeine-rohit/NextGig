@@ -4,6 +4,8 @@ import { Plus, Eye, Users, Briefcase, BarChart } from 'lucide-react';
 import { jobService } from '../../services/jobService';
 import { applicationService } from '../../services/applicationService';
 import { Job, Application } from '../../types';
+import { JobCategory } from '../../constants/categories';  
+import { JobType, ExperienceLevel } from '../../constants/locations';  
 import { PrimaryButton } from '../../components/common/PrimaryButton';
 import { GlassCard } from '../../components/common/GlassCard';
 import { LoadingSkeleton } from '../../components/common/LoadingSkeleton';
@@ -18,18 +20,18 @@ export function EmployerDashboard({ profile }: EmployerDashboardProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [newJob, setNewJob] = useState({
-    title: '',
-    company_name: profile?.company_name || '',
-    description: '',
-    category: 'Engineering',
-    location: 'Bengaluru',
-    job_type: 'Full-time',
-    experience_level: 'Mid',
-    salary_min: '',
-    salary_max: '',
-    is_remote: false,
-  });
+const [newJob, setNewJob] = useState({
+  title: '',
+  company_name: profile?.company_name || '',
+  description: '',
+  category: 'Engineering' as JobCategory,
+  location: 'Bengaluru',
+  job_type: 'Full-time' as JobType,
+  experience_level: 'Mid' as ExperienceLevel,
+  salary_min: '',
+  salary_max: '',
+  is_remote: false,
+});
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
@@ -50,39 +52,43 @@ export function EmployerDashboard({ profile }: EmployerDashboardProps) {
     }
   };
 
-  const handleCreateJob = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      setCreating(true);
-      await jobService.createJob({
-        ...newJob,
-        employer_id: profile.id,
-        salary_min: newJob.salary_min ? parseInt(newJob.salary_min) : null,
-        salary_max: newJob.salary_max ? parseInt(newJob.salary_max) : null,
-        salary_currency: 'INR',
-        status: 'active',
-      });
-      setShowCreateModal(false);
-      fetchJobs();
-      setNewJob({
-        title: '',
-        company_name: profile?.company_name || '',
-        description: '',
-        category: 'Engineering',
-        location: 'Bengaluru',
-        job_type: 'Full-time',
-        experience_level: 'Mid',
-        salary_min: '',
-        salary_max: '',
-        is_remote: false,
-      });
-    } catch (error) {
-      console.error('Error creating job:', error);
-      alert('Failed to create job');
-    } finally {
-      setCreating(false);
-    }
-  };
+const handleCreateJob = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    setCreating(true);
+    await jobService.createJob({
+      ...newJob,
+      employer_id: profile.id,
+      salary_min: newJob.salary_min ? parseInt(newJob.salary_min) : null,
+      salary_max: newJob.salary_max ? parseInt(newJob.salary_max) : null,
+      salary_currency: 'INR',
+      status: 'active',
+      is_featured: false,
+      application_count: 0,
+      updated_at: new Date().toISOString(),
+    });
+
+    setShowCreateModal(false);
+    fetchJobs();
+    setNewJob({
+      title: '',
+      company_name: profile?.company_name || '',
+      description: '',
+      category: 'Engineering' as JobCategory,
+      location: 'Bengaluru',
+      job_type: 'Full-time' as JobType,
+      experience_level: 'Mid' as ExperienceLevel,
+      salary_min: '',
+      salary_max: '',
+      is_remote: false,
+    });
+  } catch (error) {
+    console.error('Error creating job:', error);
+    alert('Failed to create job');
+  } finally {
+    setCreating(false);
+  }
+};
 
   const totalApplications = jobs.reduce((sum, job) => sum + job.application_count, 0);
   const activeJobs = jobs.filter((job) => job.status === 'active').length;
@@ -244,14 +250,25 @@ export function EmployerDashboard({ profile }: EmployerDashboardProps) {
                     required
                   />
 
-                  <input
-                    type="text"
-                    placeholder="Category"
+                  <select
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-input font-body"
                     value={newJob.category}
-                    onChange={(e) => setNewJob({ ...newJob, category: e.target.value })}
+                    onChange={(e) => setNewJob({ ...newJob, category: e.target.value as JobCategory })}
                     required
-                  />
+                  >
+                    <option value="Engineering">Engineering</option>
+                    <option value="Product">Product</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Customer Success">Customer Success</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Legal">Legal</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">

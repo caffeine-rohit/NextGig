@@ -9,7 +9,9 @@ import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { EmployerDashboard } from './pages/employer/EmployerDashboard';
 import { CandidateDashboard } from './pages/candidate/CandidateDashboard';
+import { ApplicantsPage } from './pages/employer/ApplicantsPage';
 import { LoadingSkeleton } from './components/common/LoadingSkeleton';
+import { ProfilePage } from './pages/ProfilePage'
 
 function App() {
   const { user, profile, loading, signIn, signUp, signOut } = useAuth();
@@ -29,6 +31,7 @@ function App() {
 
         <main className="flex-1">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/jobs" element={<BrowseJobsPage />} />
             <Route
@@ -36,19 +39,29 @@ function App() {
               element={<JobDetailPage user={user} profile={profile} />}
             />
 
+            {/* Auth Routes */}
             <Route
               path="/auth/login"
               element={
-                user ? <Navigate to="/" replace /> : <LoginPage onLogin={signIn} />
+                user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <LoginPage onLogin={signIn} />
+                )
               }
             />
             <Route
               path="/auth/register"
               element={
-                user ? <Navigate to="/" replace /> : <RegisterPage onRegister={signUp} />
+                user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <RegisterPage onRegister={signUp} />
+                )
               }
             />
 
+            {/* Employer Routes */}
             <Route
               path="/employer/dashboard"
               element={
@@ -59,7 +72,21 @@ function App() {
                 )
               }
             />
+            <Route
+              path="/employer/jobs/:jobId/applicants"
+              element={
+                user && profile?.role === 'employer' ? (
+                  <ApplicantsPage profile={profile} />
+                ) : (
+                  <Navigate to="/auth/login" replace />
+                )
+              }
+            />
+            
+            {/* Profile Page Route */}
+          <Route path="/profile" element={<ProfilePage />} />
 
+            {/* Candidate Routes */}
             <Route
               path="/candidate/dashboard"
               element={
@@ -71,6 +98,7 @@ function App() {
               }
             />
 
+            {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

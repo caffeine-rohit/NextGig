@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { jobService } from '../services/jobService';
 import { Job, JobFilters } from '../types';
+import { supabase } from '../lib/supabase';
 
 export function useJobs(initialFilters?: JobFilters) {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -10,6 +11,24 @@ export function useJobs(initialFilters?: JobFilters) {
 
   useEffect(() => {
     fetchJobs();
+
+    // Real-time updates — ("jobs" table)
+    const channel = supabase
+      .channel('jobs-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'jobs' },
+        (payload) => {
+          console.log('🟢 Job change detected:', payload);
+          fetchJobs(); // re-fetch automatically
+        }
+      )
+      .subscribe();
+
+    // Cleanup subscription on unmount
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [filters]);
 
   const fetchJobs = async () => {
@@ -45,6 +64,7 @@ export function useJobs(initialFilters?: JobFilters) {
   };
 }
 
+// real time for Featured Jobs
 export function useFeaturedJobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,6 +72,27 @@ export function useFeaturedJobs() {
 
   useEffect(() => {
     fetchFeaturedJobs();
+
+    const channel = supabase
+      .channel('featured-jobs-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'jobs' },
+        (payload: any) => {
+          const isFeaturedNew = payload?.new && payload.new.featured === true;
+          const isFeaturedOld = payload?.old && payload.old.featured === true;
+
+          if (isFeaturedNew || isFeaturedOld) {
+            console.log('🟢 Featured jobs change detected');
+            fetchFeaturedJobs();
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchFeaturedJobs = async () => {

@@ -10,14 +10,12 @@ export function useAuth() {
   useEffect(() => {
     checkUser();
 
-    const { data: authListener } = authService.onAuthStateChange(() => {
-      (async () => {
-        await checkUser();
-      })();
+    const unsubscribe = authService.onAuthStateChange(async () => {
+      await checkUser();
     });
 
     return () => {
-      authListener?.subscription?.unsubscribe();
+      unsubscribe();
     };
   }, []);
 
@@ -41,12 +39,7 @@ export function useAuth() {
     }
   };
 
-  const signUp = async (
-    email: string,
-    password: string,
-    fullName: string,
-    role: 'candidate' | 'employer'
-  ) => {
+  const signUp = async (email: string, password: string, fullName: string, role: 'candidate' | 'employer') => {
     const data = await authService.signUp(email, password, fullName, role);
     await checkUser();
     return data;
