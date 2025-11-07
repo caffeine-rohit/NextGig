@@ -154,7 +154,7 @@ export function JobDetailPage({ user, profile }: JobDetailPageProps) {
         setPhoneNumber('');
         setResumeLink(profile.resume_url || '');
         setPortfolioLink(profile.website || '');
-        window.location.reload();
+        navigate('/');
       }, 2000);
     } catch (error) {
       console.error('Error submitting application:', error);
