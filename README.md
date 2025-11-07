@@ -6,7 +6,7 @@ NextGig connects talented professionals with their dream opportunities while emp
 ---
 
 ## 🌐 Live Demo  
-👉 **[Click Here to Visit NextGig](https://caffeine-rohit.github.io/NextGig)** *(or hosted link once deployed on Netlify/Heroku/000webhost)*  
+👉 **[Click Here to Visit NextGig](https://next-gig-mauve.vercel.app/)**
 
 ---
 
